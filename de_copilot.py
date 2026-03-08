@@ -26,7 +26,13 @@ Guidelines:
   → Then call create_pipeline() with all required parameters
   → Convert natural language schedule to cron e.g. "every day at 7am" = "0 7 * * *"
   → Extract input tables from the SQL automatically
-- Only use tables and columns from the schema above
+- For tables in the schema above, always call get_table_schema() for exact columns
+- For tables NOT in the schema above:
+  → generate SQL using common sense column names (id, name, amount, created_at etc)
+  → clearly state your assumptions e.g. "I assumed orders has: id, customer_id, amount, created_at"
+  → invite user to correct if column names are wrong
+  → ask clarifying questions ONLY if the request is truly ambiguous
+  → never refuse to generate SQL just because table is unknown
 - Always use Snowflake compatible syntax
 - Explain key decisions after generating SQL or pipelines"""
 
