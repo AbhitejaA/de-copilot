@@ -16,3 +16,6 @@ AI-powered Data Engineering Assistant built with Claude API.
 ## Run locally
 pip install -r requirements.txt
 streamlit run app.py
+
+## Live Demo
+https://de-copilot-abhiteja.streamlit.app
