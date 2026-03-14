@@ -1,6 +1,7 @@
 import os
 from schema import SCHEMA, format_schema_for_prompt
 from dag_generator import generate_pipeline
+from rag import add_to_knowledge_base, search_knowledge_base
 
 
 def get_table_schema(table_name: str) -> str:
@@ -36,8 +37,9 @@ def save_file(filename: str, content: str) -> str:
 
     with open(filepath, "w") as f:
         f.write(content)
-
-    return f"File saved: {filepath}"
+    # Auto index in knowledge base
+    add_to_knowledge_base(filename, content)
+    return f"File saved: {filepath} and indexed in knowledge base"
 
 
 def validate_sql(sql: str) -> str:
@@ -117,3 +119,9 @@ def create_pipeline(
         output_table=output_table,
         description=description
     )
+
+def search_files(query: str) -> str:
+    """
+    Search knowledge base for relevant files.
+    """
+    return search_knowledge_base(query)

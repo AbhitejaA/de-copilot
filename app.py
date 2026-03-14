@@ -10,7 +10,7 @@ import anthropic
 import os
 from dotenv import load_dotenv
 from schema import SCHEMA, format_schema_for_prompt
-from tools import get_table_schema, save_file, validate_sql, list_output_files, create_pipeline
+from tools import get_table_schema, save_file, validate_sql, list_output_files, create_pipeline, search_files
 
 load_dotenv()
 
@@ -225,6 +225,20 @@ TOOL_DEFINITIONS = [
                 "description": {"type": "string"}
             },
             "required": ["pipeline_name", "schedule_interval", "sql", "input_tables", "output_table", "description"]
+        }
+    },
+    {
+        "name": "search_files",
+        "description": "Search knowledge base for past generated files and pipelines. Call this when user asks about previously built pipelines, past SQL queries, or wants to reference earlier work.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search query e.g. 'daily subscriber pipeline' or 'what tables does my pipeline use'"
+                }
+            },
+            "required": ["query"]
         }
     }
 ]
