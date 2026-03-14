@@ -281,6 +281,8 @@ def execute_tool(tool_name: str, tool_input: dict) -> str:
             "output_table": tool_input["output_table"],
         }
         return result
+    elif tool_name == "search_files":
+        return search_files(tool_input["query"])
     return f"Unknown tool: {tool_name}"
 
 
