@@ -169,7 +169,12 @@ Guidelines:
   → ask clarifying questions ONLY if the request is truly ambiguous
   → never refuse to generate SQL just because table is unknown
 - Always use Snowflake compatible syntax
-- Keep explanations concise and technical"""
+- Keep explanations concise and technical
+ When user asks specific questions about file contents
+  (cron schedules, table names, SQL details, config values)
+  → always call search_files() not list_output_files()
+  → list_output_files only returns names, not contents
+"""
 
 
 # ─────────────────────────────────────────
@@ -229,7 +234,7 @@ TOOL_DEFINITIONS = [
     },
     {
         "name": "search_files",
-        "description": "Search knowledge base for past generated files and pipelines. Call this when user asks about previously built pipelines, past SQL queries, or wants to reference earlier work.",
+        "description": "Search knowledge base to find CONTENTS of past generated files. Call this when user asks specific questions about what is INSIDE files — cron schedules, table names, SQL queries, pipeline configurations. list_output_files only returns filenames, search_files returns actual file contents.",
         "input_schema": {
             "type": "object",
             "properties": {
